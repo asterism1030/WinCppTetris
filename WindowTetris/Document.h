@@ -9,9 +9,9 @@ class Document
 {
 	static Document* singleton;
 
-public :
+public:
 	static Document* GetSingleton();
-	
+
 	void MakeDiagram();
 
 	bool MoveDown();

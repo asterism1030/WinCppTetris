@@ -1,4 +1,5 @@
-#include <Windows.h>
+ï»¿#include "framework.h"
+#include "WindowTetris.h"
 #include "Document.h"
 
 #define BOARD_SX	70
@@ -95,7 +96,7 @@ void OnDraw(HWND hWnd, HDC hdc)
 {
 	DrawGameBoard(hWnd, hdc);
 	DrawDiagram(hWnd, hdc);
-	
+
 	DrawNextBoard(hWnd, hdc);
 	DrawNextDiagram(hWnd, hdc);
 }
@@ -110,7 +111,7 @@ void  OnPaint(HWND hWnd)
 
 void OnDestroy(HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
-	
+	PostQuitMessage(0);
 }
 
 LRESULT CALLBACK MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
@@ -126,7 +127,6 @@ LRESULT CALLBACK MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 	return DefWindowProc(hWnd, iMessage, wParam, lParam);
 }
 
-//int APIENTRY wWinMain(_In_ HINSTANCE hIns, _In_opt_ HINSTANCE hPrev, _In_ LPSTR cmd, _In_ int nShow)
 int APIENTRY wWinMain(_In_ HINSTANCE hIns,
 	_In_opt_ HINSTANCE hPrev,
 	_In_ LPWSTR    cmd,
@@ -136,20 +136,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hIns,
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndclass.style = CS_DBLCLKS;
 	wndclass.lpfnWndProc = MainProc;
-	wndclass.lpszClassName = TEXT("Å×Æ®¸®½º");
+	wndclass.lpszClassName = TEXT("í…ŒíŠ¸ë¦¬ìŠ¤");
 	wndclass.hCursor = LoadCursor(0, IDC_ARROW);
 	wndclass.hIcon = LoadCursor(0, IDI_APPLICATION);
 	wndclass.hInstance = hIns;
 
 	RegisterClass(&wndclass);
 	HWND hWnd = CreateWindow(
-		TEXT("Å×Æ®¸®½º"), TEXT("Å×Æ®¸®½º"), 
-		WS_OVERLAPPED, 100, 100, 410, 400, 
+		TEXT("í…ŒíŠ¸ë¦¬ìŠ¤"), TEXT("í…ŒíŠ¸ë¦¬ìŠ¤"),
+		WS_OVERLAPPED, 100, 100, 410, 400,
 		0, 0, hIns, 0);
 	ShowWindow(hWnd, nShow);
 
 	MSG Message;
-	while(GetMessage(&Message, 0, 0, 0)) {
+	while (GetMessage(&Message, 0, 0, 0)) {
 		DispatchMessage(&Message);
 	}
 
