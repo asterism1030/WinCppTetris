@@ -1,4 +1,10 @@
 #pragma once
+#define BOARD_COL	10
+#define BOARD_ROW	18
+
+#define SX			3
+#define SY			0
+
 class Document
 {
 	static Document* singleton;

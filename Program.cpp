@@ -1,7 +1,23 @@
 #include <Windows.h>
 #include "Document.h"
 
-#define TID_DROP 1032
+#define BOARD_SX	70
+#define BOARD_SY	50
+#define MY_WIDTH	15
+#define MY_HEIGHT	15
+
+#define MY_RX(x)	(BOARD_SX + (x)*MY_WIDTH)
+#define MY_RY(y)	(BOARD_SY + (y)*MY_HEIGHT)
+#define NEXT_SX		270
+#define MY_NRX(x)	(NEXT_SX + (x)*MY_WIDHT)
+#define MY_NRY(y)	(MY_RY(y))
+
+#define DIAGRAM_WIDTH	4
+#define DIAGRAM_HEIGHT	4
+#define DW			DIAGRAM_WIDTH
+#define DH			DIAGRAM_HEIGHT
+
+#define TID_DROP	1032
 
 void OnCreate(HWND hWnd, CREATESTRUCT* pcs)
 {
@@ -41,6 +57,40 @@ void OnKeyDown(HWND hWnd, DWORD key, LPARAM lParam)
 	InvalidateRect(hWnd, 0, true);
 }
 
+void DrawGameBoard(HWND hWnd, HDC hdc)
+{
+	HPEN hPen = CreatePen(PS_SOLID, 1, RGB(40, 40, 40));
+	HPEN oPen = (HPEN)SelectObject(hdc, hPen);
+
+	for (int r = 0; r <= BOARD_ROW; r++) {
+		MoveToEx(hdc, BOARD_SX, MY_RY(r), 0);
+		LineTo(hdc, MY_RX(BOARD_COL), MY_RY(r));
+	}
+
+	for (int c = 0; c <= BOARD_COL; c++) {
+		MoveToEx(hdc, MY_RX(c), MY_RY(0), 0);
+		LineTo(hdc, MY_RX(c), MY_RY(BOARD_ROW));
+	}
+
+	SelectObject(hdc, hPen);
+	DeleteObject(hPen);
+}
+
+void DrawDiagram(HWND hWnd, HDC hdc)
+{
+
+}
+
+void DrawNextBoard(HWND hWnd, HDC hdc)
+{
+
+}
+
+void DrawNextDiagram(HWND hWnd, HDC hdc)
+{
+
+}
+
 void OnDraw(HWND hWnd, HDC hdc)
 {
 	DrawGameBoard(hWnd, hdc);
@@ -76,7 +126,11 @@ LRESULT CALLBACK MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam
 	return DefWindowProc(hWnd, iMessage, wParam, lParam);
 }
 
-INT APIENTRY WinMain(HINSTANCE hIns, HINSTANCE hPrev, LPSTR cmd, INT nShow)
+//int APIENTRY wWinMain(_In_ HINSTANCE hIns, _In_opt_ HINSTANCE hPrev, _In_ LPSTR cmd, _In_ int nShow)
+int APIENTRY wWinMain(_In_ HINSTANCE hIns,
+	_In_opt_ HINSTANCE hPrev,
+	_In_ LPWSTR    cmd,
+	_In_ int       nShow)
 {
 	WNDCLASS wndclass = { 0 };
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
@@ -101,3 +155,4 @@ INT APIENTRY WinMain(HINSTANCE hIns, HINSTANCE hPrev, LPSTR cmd, INT nShow)
 
 	return 0;
 }
+
